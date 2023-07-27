@@ -1,17 +1,16 @@
-# Step 1: Initialize Terraform in the repository directory
-  - name: 'hashicorp/terraform'
-    args: ['init']
+steps:
+  - id: 'tf apply'
+    name: 'hashicorp/terraform:1.0.0'
+    entrypoint: 'sh'
+    args: 
+      - '-c'
+      - | 
+        terraform apply -auto-approve
 
-  # Step 2: Apply the Terraform configuration (replace 'your-plan-name')
-  - name: 'hashicorp/terraform'
-    args: ['apply', '-auto-approve', '-var', 'project_id=your-project-id']
-
-  # Step 3: Copy the Terraform state file to the GCS bucket
-  # Replace 'your-gcs-bucket-name' and 'your-terraform-state-file' with appropriate values.
-  - name: 'gcr.io/cloud-builders/gsutil'
-    args: ['cp', 'your-terraform-state-file', 'gs://your-gcs-bucket-name/your-terraform-state-file']
-
-# Optionally, you can specify the images used in the build with the 'images' attribute.
-
-# Timeout value for the entire build process (optional, specify in seconds).
-timeout: '1200s'
+  - id: 'gsutil copy'
+    name: 'gcr.io/cloud-builders/gsutil'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        gsutil cp terraform.tfstate gs://terraform-sftp-bucket/
