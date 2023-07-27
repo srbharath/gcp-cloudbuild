@@ -7,3 +7,4 @@ steps:
       - | 
         terraform init
         terraform apply -auto-approve
+logs_bucket: imposing-voyage-392509-tfstate
