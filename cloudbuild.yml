@@ -5,6 +5,7 @@ steps:
     args: 
       - '-c'
       - | 
-        terraform init
-        terraform apply -auto-approve
+        # terraform init
+        # terraform apply -auto-approve
+        terraform destroy --auto-approve
 logs_bucket: imposing-voyage-392509-tfstate
