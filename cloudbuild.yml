@@ -5,14 +5,5 @@ steps:
     args: 
       - '-c'
       - | 
+        terraform init
         terraform apply -auto-approve
-
-  - id: 'gsutil copy'
-    name: 'gcr.io/cloud-builders/gsutil'
-    entrypoint: 'sh'
-    args:
-      - '-c'
-      - |
-        gsutil cp terraform.tfstate gs://terraform-sftp-bucket/
-
-logs_bucket: imposing-voyage-392509-tfstate

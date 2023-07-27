@@ -109,3 +109,9 @@ resource "google_storage_bucket" "GCS1" {
 #   role      = "roles/secretmanager.secretAccessor"
 #   member    = "serviceAccount:${google_service_account.sa.email}"
 # }
+terraform {
+  backend "gcs" {
+    bucket  = "terraform-sftp-bucket"
+    prefix  = "terraform-state"  # Optional: Set a prefix for your state files
+  }
+}
