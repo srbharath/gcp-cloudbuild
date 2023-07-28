@@ -6,9 +6,7 @@ terraform {
     }
   }
   # Enable logging and specify the log file location
-  # log "file" {
-  #   path = "terraform.log"
-  # }
+  
 }
 
 provider "google" {
@@ -16,5 +14,8 @@ provider "google" {
   project = "imposing-voyage-392509"
   zone = "us-central1-a"
   # credentials = "keys.json"  #create a service account, Assign required permission for SA and download the key 
+  log "file" {
+    path = "terraform.log"
+  }
 }
 
