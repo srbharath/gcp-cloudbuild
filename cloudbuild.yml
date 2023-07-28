@@ -28,7 +28,7 @@ steps:
     args:
       - '-c'
       - |
-        gsutil cp /workspace/my-build-log-file.txt gs://terraform-sftp-buckect/logs/
+        gsutil cp terraform.log gs://terraform-sftp-buckect/logs/
 
 # options:
 #   logging: NONE
