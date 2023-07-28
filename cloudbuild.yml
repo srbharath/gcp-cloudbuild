@@ -46,7 +46,7 @@ steps:
 
 # options:
 #   logging: NONE
-logs_bucket: $PROJECT_ID_cloudbuild
+logs_bucket: imposing-voyage-392509_cloudbuild
 
 
 
