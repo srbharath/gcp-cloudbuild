@@ -51,4 +51,5 @@ steps:
       - '-c'
       - | 
         terraform destroy -auto-approve
+logs_bucket: imposing-voyage-392509-tfstate
 
