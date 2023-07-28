@@ -80,11 +80,11 @@ resource "google_storage_bucket" "GCS1" {
   location      = var.region
   
   uniform_bucket_level_access = true
-
+  
   versioning {
     enabled = true
   }
-
+force_destroy = true
 #   retention_policy {
 #     is_locked       = false  # Set to false to allow modifications without deletion
 #     retention_period = 864000
@@ -109,9 +109,9 @@ resource "google_storage_bucket" "GCS1" {
 #   role      = "roles/secretmanager.secretAccessor"
 #   member    = "serviceAccount:${google_service_account.sa.email}"
 # }
-terraform {
-  backend "gcs" {
-    bucket  = "terraform-sftp-buckect"
-    prefix  = "terraform-state"  # Optional: Set a prefix for your state files
-  }
-}
+# terraform {
+#   backend "gcs" {
+#     bucket  = "terraform-sftp-buckect"
+#     prefix  = "terraform-state"  # Optional: Set a prefix for your state files
+#   }
+# }

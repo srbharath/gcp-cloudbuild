@@ -1,3 +1,40 @@
+steps:
+  - id: 'tf init'
+    name: 'hashicorp/terraform:1.0.0'
+    entrypoint: 'sh'
+    args: 
+      - '-c'
+      - | 
+        terraform init
+# to run terraform apply
+  - id: 'tf apply'
+    name: 'hashicorp/terraform:1.0.0'
+    entrypoint: 'sh'
+    args: 
+      - '-c'
+      - | 
+        terraform apply -auto-approve
+# Copying the state file to the bucket
+  - id: 'gsutil copy'
+    name: 'gcr.io/cloud-builders/gsutil'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        gsutil cp terraform.tfstate gs://terraform-sftp-buckect/
+  # Copying the build log file to the logs bucket
+  - name: 'gcr.io/cloud-builders/gsutil'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        gsutil cp /workspace/my-build-log-file.txt gs://terraform-sftp-buckect/logs/
+
+options:
+  logging: NONE
+
+#--------------------------------------------------------------------------------------
+
 # steps:
 #   - id: 'tf init'
 #     name: 'hashicorp/terraform:1.0.0'
@@ -7,6 +44,13 @@
 #       - | 
 #         terraform init
 
+#   - id: 'tf state pull'
+#     name: 'google/cloud-sdk:latest'
+#     entrypoint: 'sh'
+#     args: 
+#       - '-c'
+#       - | 
+#         gsutil cp gs://imposing-voyage-392509-tfstate/terraform.tfstate .
 #   - id: 'tf destroy'
 #     name: 'hashicorp/terraform:1.0.0'
 #     entrypoint: 'sh'
@@ -14,41 +58,5 @@
 #       - '-c'
 #       - | 
 #         terraform destroy -auto-approve
-
-  # - id: 'gsutil copy'
-  #   name: 'gcr.io/cloud-builders/gsutil'
-  #   entrypoint: 'sh'
-  #   args:
-  #     - '-c'
-  #     - |
-  #       gsutil cp terraform.tfstate gs://imposing-voyage-392509-tfstate/
-
 # logs_bucket: imposing-voyage-392509-tfstate
-
-#--------------------------------------------------------------------------------------
-
-steps:
-  - id: 'tf init'
-    name: 'hashicorp/terraform:1.0.0'
-    entrypoint: 'sh'
-    args: 
-      - '-c'
-      - | 
-        terraform init
-
-  - id: 'tf state pull'
-    name: 'google/cloud-sdk:latest'
-    entrypoint: 'sh'
-    args: 
-      - '-c'
-      - | 
-        gsutil cp gs://imposing-voyage-392509-tfstate/terraform.tfstate .
-  - id: 'tf destroy'
-    name: 'hashicorp/terraform:1.0.0'
-    entrypoint: 'sh'
-    args: 
-      - '-c'
-      - | 
-        terraform destroy -auto-approve
-logs_bucket: imposing-voyage-392509-tfstate
 
