@@ -5,7 +5,7 @@ steps:
     args: 
       - '-c'
       - | 
-        terraform init | tee terraform.log
+        terraform init 2>&1 | tee terraform.log
 # To pull the terraform state file
   - id: 'tf state pull'
     name: 'google/cloud-sdk:latest'
@@ -27,7 +27,7 @@ steps:
     args: 
       - '-c'
       - | 
-        terraform apply -auto-approve | tee terraform.log
+        terraform apply -auto-approve 2>&1 | tee terraform.log
 # Copying the state file to the bucket
   - id: 'gsutil copy'
     name: 'gcr.io/cloud-builders/gsutil'
