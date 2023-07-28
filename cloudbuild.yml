@@ -30,8 +30,11 @@ steps:
       - |
         gsutil cp /workspace/my-build-log-file.txt gs://terraform-sftp-buckect/logs/
 
-options:
-  logging: NONE
+# options:
+#   logging: NONE
+logs_bucket: imposing-voyage-392509-tfstate
+
+
 
 #--------------------------------------------------------------------------------------
 
