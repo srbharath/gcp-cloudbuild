@@ -6,9 +6,9 @@ terraform {
     }
   }
   # Enable logging and specify the log file location
-  log "file" {
-    path = "terraform.log"
-  }
+  # log "file" {
+  #   path = "terraform.log"
+  # }
 }
 
 provider "google" {
