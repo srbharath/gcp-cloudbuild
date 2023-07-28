@@ -5,6 +5,10 @@ terraform {
       version = "4.73.0"
     }
   }
+  # Enable logging and specify the log file location
+  log "file" {
+    path = "terraform.log"
+  }
 }
 
 provider "google" {
