@@ -43,10 +43,9 @@ steps:
   #     - '-c'
   #     - |
   #       gsutil cp terraform.log gs://terraform-sftp-buckect/logs/
-
-# options:
-#   logging: NONE
-logs_bucket: imposing-voyage-392509_cloudbuild
+options:
+  logging: NONE
+# logs_bucket: imposing-voyage-392509_cloudbuild
 
 
 
