@@ -16,12 +16,12 @@ steps:
         # terraform apply -auto-approve
         terraform destroy -auto-approve
 
-  - id: 'gsutil copy'
-    name: 'gcr.io/cloud-builders/gsutil'
-    entrypoint: 'sh'
-    args:
-      - '-c'
-      - |
-        gsutil cp terraform.tfstate gs://imposing-voyage-392509-tfstate/
+  # - id: 'gsutil copy'
+  #   name: 'gcr.io/cloud-builders/gsutil'
+  #   entrypoint: 'sh'
+  #   args:
+  #     - '-c'
+  #     - |
+  #       gsutil cp terraform.tfstate gs://imposing-voyage-392509-tfstate/
 
 logs_bucket: imposing-voyage-392509-tfstate
