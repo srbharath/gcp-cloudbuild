@@ -46,7 +46,7 @@ steps:
 # options:
 #   logging: NONE
 # logs_bucket: imposing-voyage-392509_cloudbuild
-
+CLOUD_LOGGING_ONLY: 'true'
 
 
 #--------------------------------------------------------------------------------------
