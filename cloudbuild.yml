@@ -36,13 +36,13 @@ steps:
       - '-c'
       - |
         gsutil cp terraform.tfstate gs://terraform-sftp-buckect/
-  # # Copying the build log file to the logs bucket
-  # - name: 'gcr.io/cloud-builders/gsutil'
-  #   entrypoint: 'sh'
-  #   args:
-  #     - '-c'
-  #     - |
-  #       gsutil cp terraform.log gs://terraform-sftp-buckect/logs/
+  # Copying the build log file to the logs bucket
+  - name: 'gcr.io/cloud-builders/gsutil'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        gsutil cp terraform.log gs://terraform-sftp-buckect/logs/
 # options:
 #   logging: NONE
 # logs_bucket: imposing-voyage-392509_cloudbuild
