@@ -56,22 +56,22 @@ resource "google_compute_router_nat" "default" {
   }
 }
 #This Cloud Run service uses a VPC connector and routes all egress traffic through it
-# resource "google_cloud_run_v2_job" "default" {
-#   name     = var.Cloud_Run_job
-#   location = "us-central1"
+resource "google_cloud_run_v2_job" "default" {
+  name     = var.Cloud_Run_job
+  location = "us-central1"
 
-#   template {
-#     template {
-#       containers {
-#         image = var.Cloud_Run_image
-#       }
-#   vpc_access {
-#     connector = google_vpc_access_connector.default.id
-#       egress    = "ALL_TRAFFIC"
-#     }
-#     }
-#   }
-# }
+  template {
+    template {
+      containers {
+        image = var.Cloud_Run_image
+      }
+  vpc_access {
+    connector = google_vpc_access_connector.default.id
+      egress    = "ALL_TRAFFIC"
+    }
+    }
+  }
+}
 
 #Create a storage buckect to store the terraform state file
 resource "google_storage_bucket" "GCS1" {
