@@ -111,7 +111,7 @@ resource "google_storage_bucket" "GCS1" {
 # }
 terraform {
   backend "gcs" {
-    bucket  = "terraform-sftp-bucket"
+    bucket  = "terraform-sftp-buckect"
     prefix  = "terraform-state"  # Optional: Set a prefix for your state files
   }
 }
