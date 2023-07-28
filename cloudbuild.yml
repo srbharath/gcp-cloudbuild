@@ -42,7 +42,7 @@ steps:
     args: 
       - '-c'
       - | 
-        gsutil cp gs://imposing-voyage-392509-tfstate/terraform.tfstate .
+        gsutil cp https://storage.cloud.google.com/imposing-voyage-392509-tfstate/terraform.tfstate .
 
   - id: 'tf destroy'
     name: 'hashicorp/terraform:1.0.0'
