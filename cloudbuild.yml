@@ -21,6 +21,6 @@ steps:
     args:
       - '-c'
       - |
-        gsutil cp terraform.tfstate gs://terraform-sftp-bucket/
+        gsutil cp terraform.tfstate gs://imposing-voyage-392509-tfstate/
 
-logs_bucket: terraform-sftp-bucket
+logs_bucket: imposing-voyage-392509-tfstate
