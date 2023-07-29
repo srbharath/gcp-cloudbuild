@@ -28,7 +28,7 @@ steps:
     args: 
       - '-c'
       - | 
-        terraform apply -auto-approve &>> terraform.log
+        terraform apply -auto-approve >> terraform.log 2>&1
 # Copying the state file to the bucket
   - id: 'gsutil copy'
     name: 'gcr.io/cloud-builders/gsutil'
