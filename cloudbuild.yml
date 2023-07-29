@@ -1,49 +1,4 @@
-# # To run terraform init
-# steps:
-#   - id: 'tf init'
-#     name: 'hashicorp/terraform:1.0.0'
-#     entrypoint: 'sh'
-#     args: 
-#       - '-c'
-#       - | 
-#         terraform init 
-# # To pull the terraform state file
-#   - id: 'tf state pull'
-#     name: 'google/cloud-sdk:latest'
-#     entrypoint: 'sh'
-#     args:
-#       - '-c'
-#       - |
-#         if gsutil ls gs://terraform-sftp-buckect/ 2>&1 | grep -q 'BucketNotFoundException'; then
-#           echo "Bucket not found. Skipping state file copy."
-#         else
-#           gsutil cp gs://terraform-sftp-buckect/terraform.tfstate .
-#         fi
-
-  
-# # to run terraform apply
-#   - id: 'tf apply'
-#     name: 'hashicorp/terraform:1.0.0'
-#     entrypoint: 'sh'
-#     args: 
-#       - '-c'
-#       - | 
-#         terraform apply -auto-approve 
-# # Copying the state file to the bucket
-#   - id: 'gsutil copy'
-#     name: 'gcr.io/cloud-builders/gsutil'
-#     entrypoint: 'sh'
-#     args:
-#       - '-c'
-#       - |
-#         gsutil cp terraform.tfstate gs://terraform-sftp-buckect/
-
-# options:
-#   logging: CLOUD_LOGGING_ONLY
-
-#--------------------------------------------------------------------------------------
-# cloudbuild file to terraform destroy
-# to run terraform init
+# To run terraform init
 steps:
   - id: 'tf init'
     name: 'hashicorp/terraform:1.0.0'
@@ -51,22 +6,67 @@ steps:
     args: 
       - '-c'
       - | 
-        terraform init
-# to pull the state file form the buckect
+        terraform init 
+# To pull the terraform state file
   - id: 'tf state pull'
     name: 'google/cloud-sdk:latest'
     entrypoint: 'sh'
-    args: 
+    args:
       - '-c'
-      - | 
-        gsutil cp gs://terraform-sftp-buckect/terraform.tfstate .
-# to run Terraform destroy
-  - id: 'tf destroy'
+      - |
+        if gsutil ls gs://terraform-sftp-buckect/ 2>&1 | grep -q 'BucketNotFoundException'; then
+          echo "Bucket not found. Skipping state file copy."
+        else
+          gsutil cp gs://terraform-sftp-buckect/terraform.tfstate .
+        fi
+
+  
+# to run terraform apply
+  - id: 'tf apply'
     name: 'hashicorp/terraform:1.0.0'
     entrypoint: 'sh'
     args: 
       - '-c'
       - | 
-        terraform destroy -auto-approve | tee terraform-destroy.log
+        terraform apply -auto-approve 
+# Copying the state file to the bucket
+  - id: 'gsutil copy'
+    name: 'gcr.io/cloud-builders/gsutil'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        gsutil cp terraform.tfstate gs://terraform-sftp-buckect/
+
 options:
   logging: CLOUD_LOGGING_ONLY
+
+#--------------------------------------------------------------------------------------
+# cloudbuild file to terraform destroy
+# to run terraform init
+# steps:
+#   - id: 'tf init'
+#     name: 'hashicorp/terraform:1.0.0'
+#     entrypoint: 'sh'
+#     args: 
+#       - '-c'
+#       - | 
+#         terraform init
+# # to pull the state file form the buckect
+#   - id: 'tf state pull'
+#     name: 'google/cloud-sdk:latest'
+#     entrypoint: 'sh'
+#     args: 
+#       - '-c'
+#       - | 
+#         gsutil cp gs://terraform-sftp-buckect/terraform.tfstate .
+# # to run Terraform destroy
+#   - id: 'tf destroy'
+#     name: 'hashicorp/terraform:1.0.0'
+#     entrypoint: 'sh'
+#     args: 
+#       - '-c'
+#       - | 
+#         terraform destroy -auto-approve | tee terraform-destroy.log
+# options:
+#   logging: CLOUD_LOGGING_ONLY
