@@ -115,14 +115,6 @@ force_destroy = true
 #     prefix  = "terraform-state"  # Optional: Set a prefix for your state files
 #   }
 # }
-
-terraform {
-  backend "gcs" {
-    bucket = "imposing-voyage-392509-tfstate"
-    prefix = "sftp-to-bucket/terraform.tfstate"
-  }
-}
-
 resource "google_cloud_run_v2_job" "default" {
   name     = "Cloud-Run-job-demo"
   location = "us-central1"
@@ -139,3 +131,10 @@ resource "google_cloud_run_v2_job" "default" {
     }
   }
 }
+terraform {
+  backend "gcs" {
+    bucket = "imposing-voyage-392509-tfstate"
+    prefix = "sftp-to-bucket/terraform.tfstate"
+  }
+}
+
