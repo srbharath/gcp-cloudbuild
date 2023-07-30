@@ -7,18 +7,19 @@ steps:
       - '-c'
       - | 
         terraform init 
+
 # To pull the terraform state file if it exists or it will skip this stepS
-  # - id: 'tf state pull'
-  #   name: 'google/cloud-sdk:latest'
-  #   entrypoint: 'sh'
-  #   args:
-  #     - '-c'
-  #     - |
-  #       if gsutil ls gs://imposing-voyage-392509-tfstate/sftp-to-bucket/terraform.tfstate/ 2>&1 | grep -q 'BucketNotFoundException'; then
-  #         echo "Bucket not found. Skipping state file copy."
-  #       else
-  #         gsutil cp gs://imposing-voyage-392509-tfstate/sftp-to-bucket/terraform.tfstate/default.tfstate .
-  #       fi
+  - id: 'tf state pull'
+    name: 'google/cloud-sdk:latest'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        if gsutil ls gs://imposing-voyage-392509-tfstate/sftp-to-bucket/terraform.tfstate/ 2>&1 | grep -q 'BucketNotFoundException'; then
+          echo "Bucket not found. Skipping state file copy."
+        else
+          gsutil cp gs://imposing-voyage-392509-tfstate/sftp-to-bucket/terraform.tfstate/default.tfstate .
+        fi
 
   
 # to run terraform apply
