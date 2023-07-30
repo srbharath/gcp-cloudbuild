@@ -17,7 +17,7 @@ steps:
         if gsutil ls gs://imposing-voyage-392509-tfstate/sftp-to-bucket/terraform.tfstate/ 2>&1 | grep -q 'BucketNotFoundException'; then
           echo "Bucket not found. Skipping state file copy."
         else
-          gsutil cp gs://imposing-voyage-392509-tfstate/sftp-to-bucket/terraform.tfstate/ .
+          gsutil cp gs://imposing-voyage-392509-tfstate/sftp-to-bucket/terraform.tfstate/default.tfstate .
         fi
 
   
