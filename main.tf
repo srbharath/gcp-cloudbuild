@@ -115,16 +115,12 @@ force_destroy = true
 #     prefix  = "terraform-state"  # Optional: Set a prefix for your state files
 #   }
 # }
-resource "google_compute_network" "default12" {
-  name     = "vpc-name"
-}
+
 terraform {
   backend "gcs" {
     bucket = "imposing-voyage-392509-tfstate"
     prefix = "sftp-to-bucket/terraform.tfstate"
   }
 }
-resource "google_compute_network" "default123" {
-  name     = "vpc-name1"
-}
+
 
