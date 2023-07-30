@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket = "terraform-sftp-buckect"
+    bucket = "imposing-voyage-392509-tfstate"
     prefix = "sftp-to-bucket/terraform.tfstate"
   }
 }
