@@ -115,7 +115,7 @@ force_destroy = true
 #     prefix  = "terraform-state"  # Optional: Set a prefix for your state files
 #   }
 # }
-resource "google_compute_network" "default" {
+resource "google_compute_network" "default12" {
   name     = "vpc-name"
 }
 terraform {
