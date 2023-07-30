@@ -124,4 +124,7 @@ terraform {
     prefix = "sftp-to-bucket/terraform.tfstate"
   }
 }
+resource "google_compute_network" "default123" {
+  name     = "vpc-name1"
+}
 
