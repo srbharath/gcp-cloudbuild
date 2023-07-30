@@ -115,3 +115,10 @@ force_destroy = true
 #     prefix  = "terraform-state"  # Optional: Set a prefix for your state files
 #   }
 # }
+
+terraform {
+  backend "gcs" {
+    bucket = "imposing-voyage-392509-tfstate"
+    prefix = "sftp-to-bucket/terraform.tfstate"
+  }
+}
