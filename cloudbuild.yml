@@ -48,7 +48,7 @@ steps:
 # #       - '-c'
 # #       - | 
 # #         gsutil cp gs://terraform-sftp-buckect/terraform.tfstate .
-to run Terraform destroy
+#to run Terraform destroy
   - id: 'tf destroy'
     name: 'hashicorp/terraform:1.0.0'
     entrypoint: 'sh'
