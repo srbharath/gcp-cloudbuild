@@ -73,10 +73,10 @@ resource "google_cloud_run_v2_job" "default" {
   }
 }
 
-# #Create the VPC network 
-# resource "google_compute_network" "default12" {
-#   name     = vpcname
-# }
+#Create the VPC network 
+resource "google_compute_network" "default12" {
+  name     = vpcname
+}
 
 # Create the service account
 # resource "google_service_account" "sa" {
