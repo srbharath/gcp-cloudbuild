@@ -115,7 +115,6 @@ resource "google_cloud_run_v2_job" "default" {
 #     prefix  = "terraform-state"  # Optional: Set a prefix for your state files
 #   }
 # }
-
 terraform {
   backend "gcs" {
     bucket = "terraform-sftp-buckect"
