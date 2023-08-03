@@ -17,16 +17,16 @@ steps:
         set -x  # Enable debug mode
         terraform init 
         set +x  # Disable debug mode
-# # to run terraform apply
-#   - id: 'tf apply'
-#     name: 'hashicorp/terraform:1.0.0'
-#     entrypoint: 'sh'
-#     args: 
-#       - '-c'
-#       - | 
-#         terraform apply -auto-approve 
-# options:
-#   logging: CLOUD_LOGGING_ONLY
+# to run terraform apply
+  - id: 'tf apply'
+    name: 'hashicorp/terraform:1.0.0'
+    entrypoint: 'sh'
+    args: 
+      - '-c'
+      - | 
+        terraform apply -auto-approve 
+options:
+  logging: CLOUD_LOGGING_ONLY
 # #--------------------------------------------------------------------------------------
 # # # # cloudbuild file to terraform destroy
 
@@ -48,13 +48,13 @@ steps:
 # #       - | 
 # #         gsutil cp gs://terraform-sftp-buckect/terraform.tfstate .
 # to run Terraform destroy
-  - id: 'tf destroy'
-    name: 'hashicorp/terraform:1.0.0'
-    entrypoint: 'sh'
-    args: 
-      - '-c'
-      - | 
-        terraform destroy -auto-approve 
+#   - id: 'tf destroy'
+#     name: 'hashicorp/terraform:1.0.0'
+#     entrypoint: 'sh'
+#     args: 
+#       - '-c'
+#       - | 
+#         terraform destroy -auto-approve 
 
-options:
-  logging: CLOUD_LOGGING_ONLY
+# options:
+#   logging: CLOUD_LOGGING_ONLY

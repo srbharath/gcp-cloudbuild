@@ -73,23 +73,6 @@ resource "google_cloud_run_v2_job" "default" {
   }
 }
 
-# #Create a storage buckect to store the terraform state file
-# resource "google_storage_bucket" "GCS1" {
-#   name          = var.Gcs_buckect_name
-#   storage_class = "STANDARD"  # Set the initial storage class to STANDARD
-#   location      = var.region
-  
-#   uniform_bucket_level_access = true
-  
-#   versioning {
-#     enabled = true
-#   }
-# force_destroy = true
-# #   retention_policy {
-# #     is_locked       = false  # Set to false to allow modifications without deletion
-# #     retention_period = 864000
-# #   }
-# }
 # Create the service account
 # resource "google_service_account" "sa" {
 #   account_id   = "<SA_NAME>"  # Replace with your desired service account name
@@ -109,12 +92,7 @@ resource "google_cloud_run_v2_job" "default" {
 #   role      = "roles/secretmanager.secretAccessor"
 #   member    = "serviceAccount:${google_service_account.sa.email}"
 # }
-# terraform {
-#   backend "gcs" {
-#     bucket  = "terraform-sftp-buckect"
-#     prefix  = "terraform-state"  # Optional: Set a prefix for your state files
-#   }
-# }
+
 terraform {
   backend "gcs" {
     bucket = "terraform-sftp-buckect"
