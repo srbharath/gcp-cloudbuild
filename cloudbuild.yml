@@ -30,7 +30,7 @@ steps:
 options:
   logging:
     # Set the log location to the specified bucket
-    gcsPath: 'gs://terraform-sftp-bucket/build-logs/'
+    gcsLog: 'gs://terraform-sftp-bucket/build-logs/'
 # #--------------------------------------------------------------------------------------
 # # # # cloudbuild file to terraform destroy
 
