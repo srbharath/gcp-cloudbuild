@@ -27,7 +27,7 @@ steps:
         terraform apply -auto-approve 
 # options:
 #   logging: CLOUD_LOGGING_ONLY
-logs_bucket: "terraform-sftp-buckect/apply-logs/"
+logs_bucket: "terraform-sftp-buckect/create-logs/"
 # #--------------------------------------------------------------------------------------
 # # # # cloudbuild file to terraform destroy
 
@@ -49,14 +49,14 @@ logs_bucket: "terraform-sftp-buckect/apply-logs/"
 # #       - | 
 # #         gsutil cp gs://terraform-sftp-buckect/terraform.tfstate .
 # to run Terraform destroy
-  - id: 'tf destroy'
-    name: 'hashicorp/terraform:1.0.0'
-    entrypoint: 'sh'
-    args: 
-      - '-c'
-      - | 
-        terraform destroy -auto-approve 
+  # - id: 'tf destroy'
+  #   name: 'hashicorp/terraform:1.0.0'
+  #   entrypoint: 'sh'
+  #   args: 
+  #     - '-c'
+  #     - | 
+  #       terraform destroy -auto-approve 
 
 # options:
 #   logging: CLOUD_LOGGING_ONLY
-logs_bucket: "terraform-sftp-buckect/destroy-logs/"
+# logs_bucket: "terraform-sftp-buckect/destroy-logs/"
