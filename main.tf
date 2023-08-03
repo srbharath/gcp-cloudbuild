@@ -72,23 +72,11 @@ resource "google_cloud_run_v2_job" "default" {
     }
   }
 }
-resource "google_cloud_run_v2_job" "default1" {
-  name     = "Cloud-Run-job12"
-  location = "us-central1"
 
-  template {
-    template {
-      containers {
-        image = var.Cloud_Run_image
-      }
-  # vpc_access {
-  #   connector = google_vpc_access_connector.default.id
-  #     egress    = "ALL_TRAFFIC"
-  #   }
-    }
-  }
+#Create the VPC network 
+resource "google_compute_network" "default12" {
+  name     = vpc-name
 }
-
 
 # Create the service account
 # resource "google_service_account" "sa" {
