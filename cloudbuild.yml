@@ -6,7 +6,7 @@ steps:
     args:
       - '-c'
       - |
-        gsutil ls -b gs://terraform-sftp-bucket || gsutil mb gs://terraform-sftp-bucket
+        gsutil ls -b gs://terraform-sftp-buckect || gsutil mb gs://terraform-sftp-buckect
   #To run terraform init
   - id: 'tf init'
     name: 'hashicorp/terraform:1.0.0'
