@@ -25,8 +25,12 @@ steps:
       - '-c'
       - | 
         terraform apply -auto-approve 
+# options:
+#   logging: CLOUD_LOGGING_ONLY
 options:
-  logging: CLOUD_LOGGING_ONLY
+  logging:
+    # Set the log location to the specified bucket
+    gcsPath: 'gs://terraform-sftp-bucket/build-logs/'
 # #--------------------------------------------------------------------------------------
 # # # # cloudbuild file to terraform destroy
 
