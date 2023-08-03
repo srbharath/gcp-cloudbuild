@@ -118,7 +118,7 @@ force_destroy = true
 
 terraform {
   backend "gcs" {
-    bucket = "imposing-voyage-392509-tfstate"
+    bucket = "terraform-sftp-buckect"
     prefix = "sftp-to-bucket/terraform.tfstate"
   }
 }
