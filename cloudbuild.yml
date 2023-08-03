@@ -27,7 +27,7 @@ steps:
         terraform apply -auto-approve 
 # options:
 #   logging: CLOUD_LOGGING_ONLY
-logs_bucket: "terraform-sftp-buckect"
+logs_bucket: "terraform-sftp-buckect/build-logs/"
 # #--------------------------------------------------------------------------------------
 # # # # cloudbuild file to terraform destroy
 
