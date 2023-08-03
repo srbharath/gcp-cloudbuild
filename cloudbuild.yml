@@ -6,7 +6,9 @@ steps:
     args: 
       - '-c'
       - | 
+        set -x  # Enable debug mode
         terraform init 
+        set +x  # Disable debug mode
 # to run terraform apply
   - id: 'tf apply'
     name: 'hashicorp/terraform:1.0.0'
