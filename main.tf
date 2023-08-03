@@ -58,8 +58,7 @@ resource "google_compute_router_nat" "default" {
 #This Cloud Run service uses a VPC connector and routes all egress traffic through it
 resource "google_cloud_run_v2_job" "default" {
   name     = var.Cloud_Run_job
-  location = "us-central1"
-
+  location = var.region
   template {
     template {
       containers {
@@ -73,10 +72,6 @@ resource "google_cloud_run_v2_job" "default" {
   }
 }
 
-# #Create the VPC network 
-# resource "google_compute_network" "default12" {
-#   name     = "vpcname"
-# }
 
 # Create the service account
 # resource "google_service_account" "sa" {
