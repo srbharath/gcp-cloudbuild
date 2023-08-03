@@ -101,7 +101,7 @@ terraform {
 }
 
 resource "google_cloud_run_v2_job" "default1" {
-  name     = "Cloud_Run_job"
+  name     = "Cloud-Run-job12"
   location = "us-central1"
 
   template {
