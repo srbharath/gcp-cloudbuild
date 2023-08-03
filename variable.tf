@@ -2,7 +2,7 @@
 variable "project_name" {
    type        = string
    description = "project name or id" 
-   default = "<PROJECT_NAME>"
+   default = "imposing-voyage-392509"
 }
 variable "region" {
   type        = string
