@@ -1,11 +1,8 @@
-# Use an official Nginx image as the base image
+# Use an official Apache HTTP Server image as the base image
 FROM httpd:latest
 
-# Expose port 80
+# Expose port 80 (Apache's default port)
 EXPOSE 80
 
-# Copy custom configuration file (if needed)
-# COPY nginx.conf /etc/nginx/nginx.conf
-
-# Start Nginx when the container starts
-CMD ["nginx", "-g", "daemon off;"]
+# Start Apache HTTP Server when the container starts
+CMD ["httpd", "-D", "FOREGROUND"]
