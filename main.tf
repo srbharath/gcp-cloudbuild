@@ -1,22 +1,15 @@
 # Create a Cloud SQL instance
 resource "google_sql_database_instance" "example" {
-  name              = "example-db-instance"
-  database_version  = "MYSQL_8_0"
-  project           = "imposing-voyage-392509"
-  region            = "us-central1"
+  name             = "example-instance"
+  database_version = "MYSQL_5_7"
+  region           = "us-central1" # Adjust the region as needed
+
   settings {
-    tier = "db-f1-micro"  # Choose an appropriate tier
+    tier = "db-f1-micro" # Adjust the tier as needed
   }
 }
 
-# Create a SQL user for Cloud Run
-resource "google_sql_user" "cloud_run_user" {
-  name     = "cloud-run-user"
-  instance = google_sql_database_instance.example.name
-  password = "Password@321"
-}
-
-# Create a database for your application
+# Create a database in the Cloud SQL instance
 resource "google_sql_database" "example" {
   name     = "example-database"
   instance = google_sql_database_instance.example.name
@@ -24,8 +17,8 @@ resource "google_sql_database" "example" {
 
 # Create a Cloud Run service
 resource "google_cloud_run_service" "example" {
-  name     = "example-cloud-run-service"
-  location = "us-central1"
+  name     = "example-service"
+  location = "us-central1" # Adjust the location as needed
 
   template {
     spec {
@@ -34,33 +27,27 @@ resource "google_cloud_run_service" "example" {
       }
     }
   }
-
-  traffic {
-    percent         = 100
-    latest_revision = true
-  }
 }
 
-# Allow Cloud Run service to connect to the SQL instance
-resource "google_sql_database_instance_iam_member" "cloud_run_member" {
-  instance = google_sql_database_instance.example.name
-  role     = "cloudsql.client"
-  member   = "serviceAccount:${google_cloud_run_service.example.service_account_email}"
+# Configure Cloud Run to use Cloud SQL
+resource "google_cloud_run_service_iam_policy" "example" {
+  service = google_cloud_run_service.example.name
+
+  policy_data = <<EOF
+{
+  "bindings": [
+    {
+      "members": [
+        "serviceAccount:${google_cloud_run_service.example.iam_identity.0.email}"
+      ],
+      "role": "roles/cloudsql.client"
+    }
+  ]
+}
+EOF
 }
 
-# Allow the Cloud Run service to store data in Cloud SQL
-resource "google_sql_database_instance_iam_policy" "cloud_run_policy" {
-  instance = google_sql_database_instance.example.name
-
-  binding {
-    role    = "roles/cloudsql.editor"
-    members = ["serviceAccount:${google_cloud_run_service.example.service_account_email}"]
-  }
-}
-
-# Grant necessary permissions to Cloud Run service account
-resource "google_project_iam_member" "cloud_run_iam_member" {
-  project = "imposing-voyage-392509"
-  role    = "roles/run.invoker"
-  member  = "serviceAccount:${google_cloud_run_service.example.service_account_email}"
+# Output the URL of the Cloud Run service
+output "service_url" {
+  value = google_cloud_run_service.example.status[0].url
 }
