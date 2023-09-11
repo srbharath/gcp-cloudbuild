@@ -1,64 +1,45 @@
 steps:
-  # To check if the S3 bucket exists and create it if not
-  - id: 'check or create S3 bucket'
-    name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: 'sh'
+  - name: gcr.io/cloud-builders/docker
     args:
-      - '-c'
-      - |
-        gsutil ls -b gs://terraform-sftp-buckect || gsutil mb gs://terraform-sftp-buckect
-  #To run terraform init
-  - id: 'tf init'
-    name: 'hashicorp/terraform:1.0.0'
-    entrypoint: 'sh'
-    args: 
-      - '-c'
-      - | 
-        set -x  # Enable debug mode
-        terraform init 
-        set +x  # Disable debug mode
-# # to run terraform apply
-#   - id: 'tf apply'
-#     name: 'hashicorp/terraform:1.0.0'
-#     entrypoint: 'sh'
-#     args: 
-#       - '-c'
-#       - | 
-#         terraform apply -auto-approve 
-# options:
-#   logging: CLOUD_LOGGING_ONLY
-
-# #--------------------------------------------------------------------------------------
-# # # # cloudbuild file to terraform destroy
-
-# #to run terraform init
-# steps:
-#   - id: 'tf init'
-#     name: 'hashicorp/terraform:1.0.0'
-#     entrypoint: 'sh'
-#     args: 
-#       - '-c'
-#       - | 
-#         terraform init
-# # # to pull the state file form the buckect
-# #   - id: 'tf state pull'
-# #     name: 'google/cloud-sdk:latest'
-# #     entrypoint: 'sh'
-# #     args: 
-# #       - '-c'
-# #       - | 
-# #         gsutil cp gs://terraform-sftp-buckect/terraform.tfstate .
-#to run Terraform destroy
-  - id: 'tf destroy'
-    name: 'hashicorp/terraform:1.0.0'
-    entrypoint: 'sh'
-    args: 
-      - '-c'
-      - | 
-        terraform destroy -auto-approve 
-
+      - build
+      - '--no-cache'
+      - '-t'
+      - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
+      - src
+      - '-f'
+      - Dockerfile
+    id: Build
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
+    id: Push
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
+    args:
+      - run
+      - services
+      - update
+      - $_SERVICE_NAME
+      - '--platform=managed'
+      - '--image=$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
+      - >-
+        --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,gcb-trigger-id=$_TRIGGER_ID,$_LABELS
+      - '--region=$_DEPLOY_REGION'
+      - '--quiet'
+    id: Deploy
+    entrypoint: gcloud
+images:
+  - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
 options:
-  logging: CLOUD_LOGGING_ONLY
-
-
-# logs_bucket: "terraform-sftp-buckect/destroy-logs/"
+  substitutionOption: ALLOW_LOOSE
+substitutions:
+  _TRIGGER_ID: 703eb55d-52fe-4440-933a-ec51c6f291f5
+  _DEPLOY_REGION: us-central1
+  _GCR_HOSTNAME: us.gcr.io
+  _PLATFORM: managed
+  _SERVICE_NAME: plan-config-app
+  _LABELS: gcb-trigger-id=703eb55d-52fe-4440-933a-ec51c6f291f5
+tags:
+  - gcp-cloud-build-deploy-cloud-run
+  - gcp-cloud-build-deploy-cloud-run-managed
+  - plan-config-api
