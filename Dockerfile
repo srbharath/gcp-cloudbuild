@@ -11,10 +11,10 @@ COPY . /app/
 EXPOSE 80
 
 # Define environment variables for the database connection
-ENV DB_HOST your-db-host
+ENV DB_HOST 34.134.206.146
 ENV DB_USER your-db-user
 ENV DB_PASS your-db-password
-ENV DB_NAME your-db-name
+ENV DB_NAME example-database
 
 # Run app.py when the container launches
 CMD ["python", "app.py"]
