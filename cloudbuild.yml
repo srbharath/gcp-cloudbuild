@@ -43,6 +43,7 @@ substitutions:
   _SERVICE_NAME: example-service
   _LABELS: gcb-trigger-id=703eb55d-52fe-4440-933a-ec51c6f291f5
 
+
 tags:
   - gcp-cloud-build-deploy-cloud-run
   - gcp-cloud-build-deploy-cloud-run-managed
