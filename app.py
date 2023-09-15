@@ -1,36 +1,48 @@
-# app.py
-import os
-import mysql.connector
+import psycopg2
+from flask import Flask
 
-# Retrieve environment variables for database configuration
-db_host = os.environ['DB_HOST']
-db_user = os.environ['DB_USER']
-db_pass = os.environ['DB_PASS']
-db_name = os.environ['DB_NAME']
+app = Flask(__name__)
 
-# Create a database connection
+# Define a route to display "Hello, Bharath" when accessed
+@app.route('/')
+def hello_bharath():
+    return 'Hello, Bharath'
+
+# Replace with your Cloud SQL instance connection details
+db_config = {
+    'dbname': 'my-instance',
+    'user': 'username',
+    'password': 'Password@123',
+    'host': '35.222.203.197',
+    'port': '5432'  # Default PostgreSQL port
+}
+
+# Connect to the Cloud SQL instance
 try:
-    connection = mysql.connector.connect(
-        host=db_host,
-        user=db_user,
-        password=db_pass,
-        database=db_name
+    connection = psycopg2.connect(**db_config)
+    cursor = connection.cursor()
+    
+    # Execute SQL queries or perform database operations here
+
+    # Example: Creating a table
+    create_table_query = """
+    CREATE TABLE IF NOT EXISTS example_table (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255)
     )
-
-    if connection.is_connected():
-        print("Connected to the database")
-        cursor = connection.cursor()
-
-        # Execute database operations here
-        # For example, you can fetch data from a table
-        cursor.execute("SELECT * FROM your_table")
-        for row in cursor.fetchall():
-            print(row)
+    """
+    cursor.execute(create_table_query)
+    connection.commit()
 
 except Exception as e:
-    print("Error:", e)
+    print(f"Error: {str(e)}")
 
 finally:
+    if 'cursor' in locals():
+        cursor.close()
     if 'connection' in locals():
         connection.close()
-        print("Database connection closed")
+
+if __name__ == '__main__':
+    # Run the Flask app on host '0.0.0.0' and port 8080
+    app.run(host='0.0.0.0', port=8080)
