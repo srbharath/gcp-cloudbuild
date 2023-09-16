@@ -40,7 +40,7 @@ substitutions:
   _TRIGGER_ID: 703eb55d-52fe-4440-933a-ec51c6f291f5
   _DEPLOY_REGION: us-central1
   _PLATFORM: managed
-  _SERVICE_NAME: example-service
+  _SERVICE_NAME: run-server123
   _LABELS: gcb-trigger-id=703eb55d-52fe-4440-933a-ec51c6f291f5
 
 
