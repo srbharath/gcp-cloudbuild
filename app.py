@@ -13,7 +13,6 @@ db_config = {
     'dbname': 'my-instance',
     'user': 'username',
     'password': 'Password@123',
-    'host': '35.222.203.197',
     'port': '5432'  # Default PostgreSQL port
 }
 
