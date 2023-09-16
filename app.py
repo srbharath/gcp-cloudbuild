@@ -6,7 +6,7 @@ app = Flask(__name__)
 # Define a route to display "Hello, Bharath" when accessed
 @app.route('/')
 def hello_bharath():
-    return 'Hello, Bharath_32'
+    return 'Hello, Bharath32'
 
 # Replace with your Cloud SQL instance connection details
 db_config = {
